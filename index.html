@@ -3,458 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxora - Premium Fashion</title>
 
+    <title>Luxora | Discover Your Style</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-
-    <!-- google fonts -->
-
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 
     <style>
-        * {
+        body {
             font-family: 'Poppins', sans-serif;
         }
 
-        body {
-            background-color: #f5f3ed;
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hero-image {
+            background:
+                linear-gradient(90deg, rgba(15, 31, 24, 0.78), rgba(15, 31, 24, 0.08)),
+                url("images/women1.jpeg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-card img,
+        .category-card img {
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover img,
+        .category-card:hover img {
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body>
-    
-    <!-- navbar -->
 
-    <nav class="bg-[#fdfcf8] border-b boredr-200 sticky top-2 z-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between item-center h-12">
+<body class="bg-[#faf9f6] text-[#202820]">
 
-                <!-- logo -->
+    <!-- Announcement Bar -->
+    <div class="bg-[#20372c] px-4 py-2 text-center text-xs tracking-wide text-white sm:text-sm">
+        Complimentary shipping on orders over ₹2,000
+    </div>
 
-                <a href="#" class="text-3xl font-bold tracking-tight">
-                    Luxora <span class="text-emerald-600">.</span>
-                </a>
+    <!-- Navigation -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-[#faf9f6]/95 backdrop-blur-md">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
 
+            <a href="#home" class="text-3xl font-bold tracking-tight">
+                luxora<span class="text-[#8b9b78]">.</span>
+            </a>
 
-                <!-- menu -->
-
-                <ul class="hidden md:flex item-center gap-8 font-medium text-stone-700">
-
-                    <li><a href="#" class="text-emerald-600  hover:text-emerald-700 duration-300">Home</a></li>
-                    <li><a href="#products" class="text-emerald-600  hover:text-emerald-700 duration-300">Shop</a></li>
-                    <li><a href="#categories" class="text-emerald-600  hover:text-emerald-700 duration-300">Categories</a></li>
-                    <li><a href="#footer" class="text-emerald-600  hover:text-emerald-700 duration-300">Contact</a></li>
-
-                </ul>
-
-                <!-- icons -->
-
-                <div class="flex item-center gap-4">
-
-                    <button class="text-2xl hover:text-emerald-600 duration-300 cursor-pointer">
-                        <i class="ri-heart-line"></i>
-
-                    </button>
-
-                    <button class="relative text-2xl cursor-pointer">
-
-                        <i class="ri-shopping-cart-2-line"></i>
-
-                        <span class="absolute -top-2 -right-2 bg-emerald-600 text-white text-xs w-5 h-5 
-                        rounded-full flex items-center justify-center">
-                        0
-                    </span>
-                    
-                    </span>
-
-                    </button>
-
-                </div>
-
-
+            <div class="hidden items-center gap-8 text-sm font-medium md:flex">
+                <a href="#home" class="transition hover:text-[#81936d]">Home</a>
+                <a href="#categories.html" class="transition hover:text-[#81936d]">Categories</a>
+                <a href="#products" class="transition hover:text-[#81936d]">Shop</a>
+                <a href="#about" class="transition hover:text-[#81936d]">Our Story</a>
             </div>
 
+            <div class="flex items-center gap-4 text-xl">
+
+                <button type="button" onclick="showWishlist()" aria-label="View wishlist"
+                    class="relative transition hover:text-[#81936d]">
+                    <i class="ri-heart-line"></i>
+                    <span id="wishlist-count"
+                        class="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#20372c] text-[10px] text-white">0</span>
+                </button>
+
+                <button type="button" onclick="showCart()" aria-label="View cart"
+                    class="relative transition hover:text-[#81936d]">
+                    <i class="ri-shopping-bag-3-line"></i>
+                    <span id="cart-count"
+                        class="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#20372c] text-[10px] text-white">0</span>
+                </button>
+
+                <button id="mobile-menu-button" type="button"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    class="text-xl md:hidden">
+                    <i class="ri-menu-line"></i>
+                </button>
+
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden border-t border-gray-200 px-5 py-4 md:hidden">
+            <div class="flex flex-col gap-4 text-sm font-medium">
+                <a href="#home" class="mobile-link">Home</a>
+                <a href="#categories" class="mobile-link">Categories</a>
+                <a href="#products" class="mobile-link">Shop</a>
+                <a href="#about" class="mobile-link">Our Story</a>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- hero -->
+    <main>
 
-    <Section class="bg-[#17251f]">
-        <div class="max-w-7xl mx-auto px-6">
+        <!-- Hero Section -->
+        <section id="home" class="px-4 pt-5 sm:px-6 lg:px-8">
+            <div class="hero-image mx-auto flex min-h-[520px] max-w-7xl items-center overflow-hidden rounded-3xl sm:min-h-[600px] lg:min-h-[680px]">
 
-            <div class="grid lg:grid-cols-2 items-center min-h-[85vh] gap-10">
+                <div class="max-w-2xl px-6 py-16 text-white sm:px-12 lg:px-16">
 
-                <!-- left content -->
+                    <span class="mb-5 inline-block rounded-full border border-white/40 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em]">
+                        The New Season Collection
+                    </span>
 
-                <div class="py-16 lg:py-0">
-
-                    <!-- baadge -->
-                     
-                    <div class="bg-emerald-600 text-white w-48 p-2 rounded-full text-sm font-medium flex">
-                        <i class="ri-bard-fill"></i><h1> New Collection 2026</h1>
-                        
-                    </div>
-
-                    <!-- heading -->
-
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mt-8 leading-[1.05]">
-                        Redefine
-                        <span class="text-emerald-400"> Your Style</span>
+                    <h1 class="mb-6 text-4xl font-semibold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
+                        Everyday style.<br>
+                        Extraordinary you.
                     </h1>
 
-                    <!-- description -->
-
-                     <p class="text-stone-300 mt-6 leading-8 max-w-lg">
-                        Discover timeless fashion,
-                        premium essentials and
-                        modern accessories crafted
-                        for those who love effortless style.
-                     </p>
-
-                     <!-- button -->
-
-                     <div class="flex-wrap gap-4 mt-8">
-                        <a href="#products" class="bg-emarald-600 hover:bg-emerald-700 text white px-8 py-4 rounded-xl font-semibold duration-300">
-                            Shop Collection <i class="ri-arrow-left-line"></i>
-                        </a>
-
-                        <a href="#categories" class= "border border-stone-400 text-white px-8 py-4 rounded-xl hover:bg-white hover:text-stone-900 duration-300">
-
-                            Explore
-
-                        </a>
-
-
-                     </div>
-
-                     <!-- stats -->
-
-                     <div class="fle items-center gap-8 mt-10">
-                        
-                        <div>
-                            <p class="text-2xl font-bold text-white">
-                                10K+
-                            </p>
-
-                            <p class="text-xs text-stone-400 mt-1">
-                                Happy Customers
-                            </p>
-                        </div>
-
-
-                        <div class="w-px h-10 bg-stone-600"></div>                            
-
-                            <div>
-                                <p class="text-2xl font-bold text-white">
-                                    500+
-                                </p>
-
-                                <p class="text-xs text-stone-400 mt-1">
-                                    Prducts
-                                </p>
-                        </div>
-
-
-                        <div class="w-px h-10 bg-stone-600"></div>
-
-                        <div>
-                            <p class="text-2xl font-bold text-white">
-                                4.9 <i class="ri-star-fill text-sm"></i>
-                            </p>
-                            <p class="text-xs text-stone-400 mt-1">
-                                Rating
-                            </p>
-                        </div>
-
-                     </div>
-
-                </div>
-
-                <!-- right model -->
-
-                <div class="relative h-[500px] lg:h-[700px] overflow-hidden">
-                    <img src="images/women1.jpeg" alt="">
-
-                    <!-- image gradient -->
-
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#17251f] via-transparent to-transparent"></div>
-
-                    <!-- floating card -->
-
-                    <div class="absolute bottom-8 left-6 bg-white/95 backdrop-blue rounded-2xl px-5 py-4 shadow-2xl">
-                        <p class="text-xs text-stone-500 uppercase tracking-widset">
-                            Featured
-                        </p>
-
-                        <p class="font-bold text-lg mt-1">
-                            New Session Edit
-                        </p>
-
-                        <p class="text-emereld-600_text-sm font-semibold mt-1">
-                            Explore Now<i class="ri-arrow-left-line"></i>
-                        </p>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-
-        </div>
-    </Section>
-
-    <!-- categories -->
-
-    <section id="categories" class="py-20">
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div class="text-center">
-                <p class="text-emerald-600 font-semibold upercase trackig-widest text-sm">
-                    Explore
-                </p>
-
-                <h2 class="text-4xl font-bold mt-2">
-                    Shop By Category
-                </h2>
-
-                <p class="text-stone-500 mt-3">
-                    Find your project style.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mt-12">
-
-                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
-                            duration-300 cursor-pinter">
-                            
-                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
-                                <i class="ri-shirt-line"></i>
-                            </div>
-
-                            <h3 class="font-bold mt-5">
-                                Fashion
-                            </h3>
-
-                            <p class="text-sm text-stone-500 mt-1">
-                                120+ products
-                            </p>
-                
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
-                            duration-300 cursor-pinter">
-
-                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
-                                <i class="ri-Shopping-bag-line"></i>
-                            </div>
-
-                            <h3 class="font-bold mt-5">
-                                Accessories
-                            </h3>
-
-                            <p class="text-sm text-stone-500 mt-1">
-                                95+ products
-                            </p>
-
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
-                            duration-300 cursor-pinter">
-
-                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
-                                <i class="ri-Shopping-bag-line"></i>
-                            </div>
-
-                            <h3 class="font-bold mt-5">
-                                Accessories
-                            </h3>
-
-                            <p class="text-sm text-stone-500 mt-1">
-                                95+ products
-                            </p>
-
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
-                            duration-300 cursor-pinter">
-
-                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
-                                <i class="ri-timer-line"></i>
-                            </div>
-
-                            <h3 class="font-bold mt-5">
-                                Lifestyle
-                            </h3>
-
-                            <p class="text-sm text-stone-500 mt-1">
-                                60+ products
-                            </p>
-
-                </div>
-                
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- featured cases -->
-
-    <section id="featured-products" class="py-16 sm:py-20 bg-[#eeece5]">
-
-        <div class="max-w-7xl mx-auto px-4 sm:py-6 lg:px-8">
-
-            <!-- heading -->
-
-            <div class="flex items-end justify=between">
-                <div>
-                    <p class="text-emerald-600 text-sm font-semibold uppercase tracking-widest">
-                        Our Collection
+                    <p class="mb-8 max-w-lg text-sm leading-7 text-white/85 sm:text-base">
+                        Discover thoughtfully selected fashion, modern essentials,
+                        and lifestyle favourites designed to make every day feel special.
                     </p>
 
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-2">
-                        Featured Products
-                    </h2>
-                    <a href="#" class="text-emerald-600 font-semibold hidden sm:block">
-                        View All <i class="ri-arrow-right-line"></i>
-                    </a>    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#products"
+                            class="inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#20372c] transition hover:bg-[#e7ebdf]">
+                            Shop the collection
+                            <i class="ri-arrow-right-line text-lg"></i>
+                        </a>
+
+                        <a href="#categories"
+                            class="inline-flex items-center rounded-full border border-white/70 px-7 py-4 text-sm font-medium transition hover:bg-white/10">
+                            Explore categories
+                        </a>
+                    </div>
+
+                    <div class="mt-10 flex flex-wrap items-center gap-5 text-xs text-white/80 sm:text-sm">
+                        <span><i class="ri-check-line mr-1"></i> Carefully selected products</span>
+                        <span><i class="ri-truck-line mr-1"></i> Convenient delivery</span>
+                    </div>
+
                 </div>
+            </div>
+        </section>
 
-                <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-10"></div>
+        <!-- Benefits -->
+        <section class="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-5 py-12 sm:grid-cols-3 lg:px-8">
 
+            <div class="flex items-center gap-4 border-b border-gray-200 pb-5 sm:border-b-0 sm:pb-0">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9ede4] text-xl text-[#52664b]">
+                    <i class="ri-truck-line"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold">Convenient Delivery</h3>
+                    <p class="mt-1 text-xs text-gray-500">Shopping made simple</p>
+                </div>
             </div>
 
-        </div>
+            <div class="flex items-center gap-4 border-b border-gray-200 pb-5 sm:border-b-0 sm:pb-0">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9ede4] text-xl text-[#52664b]">
+                    <i class="ri-shield-check-line"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold">Secure Shopping</h3>
+                    <p class="mt-1 text-xs text-gray-500">A smooth shopping experience</p>
+                </div>
+            </div>
 
-    </section>
+            <div class="flex items-center gap-4">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9ede4] text-xl text-[#52664b]">
+                    <i class="ri-customer-service-2-line"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold">Here to Help</h3>
+                    <p class="mt-1 text-xs text-gray-500">Support when you need it</p>
+                </div>
+            </div>
 
-    <!-- offer -->
+        </section>
 
-    <section class="py-20 bg-emerald-700 text-white">
+        <!-- Categories -->
+        <section id="categories" class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
 
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="uppercase tracking-widest text-emerald-200 text-sm font-semibold">
-                Limited Time Offer
+            <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#81936d]">
+                        Find Your Favourites
+                    </p>
+                    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+                        Shop by category
+                    </h2>
+                    <p class="mt-3 text-sm text-gray-500">
+                        A little something for every part of your life.
+                    </p>
+                </div>
+
+                <a href="#products"
+                    class="inline-flex items-center gap-2 text-sm font-medium hover:text-[#81936d]">
+                    View all products <i class="ri-arrow-right-line"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+                <a href="#products" class="category-card group relative h-72 overflow-hidden rounded-2xl bg-[#e7e5df]">
+                    <img src="images/women1.jpeg" alt="Fashion collection"
+                        class="h-full w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-5 text-white">
+                        <h3 class="text-xl font-semibold">Fashion</h3>
+                        <p class="mt-1 text-sm text-white/80">Everyday essentials</p>
+                    </div>
+                </a>
+
+                <a href="#products" class="category-card group relative h-72 overflow-hidden rounded-2xl bg-[#e7e5df]">
+                    <img src="images/nike_air_max.jpeg" alt="Footwear collection"
+                        class="h-full w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-5 text-white">
+                        <h3 class="text-xl font-semibold">Footwear</h3>
+                        <p class="mt-1 text-sm text-white/80">Step out in style</p>
+                    </div>
+                </a>
+
+                <a href="#products" class="category-card group relative h-72 overflow-hidden rounded-2xl bg-[#e7e5df]">
+                    <img src="images/wireless_headphones.jpeg" alt="Technology accessories"
+                        class="h-full w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-5 text-white">
+                        <h3 class="text-xl font-semibold">Technology</h3>
+                        <p class="mt-1 text-sm text-white/80">Smart everyday upgrades</p>
+                    </div>
+                </a>
+
+                <a href="#products" class="category-card group relative h-72 overflow-hidden rounded-2xl bg-[#e7e5df]">
+                    <img src="images/bagpack.jpeg" alt="Bags and accessories"
+                        class="h-full w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-5 text-white">
+                        <h3 class="text-xl font-semibold">Accessories</h3>
+                        <p class="mt-1 text-sm text-white/80">The finishing touches</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section id="products" class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+
+            <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#81936d]">
+                        Picked for You
+                    </p>
+                    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+                        Featured products
+                    </h2>
+                    <p class="mt-3 text-sm text-gray-500">
+                        Discover pieces worth adding to your everyday routine.
+                    </p>
+                </div>
+
+                <span class="text-sm text-gray-500">
+                    New finds. Timeless favourites.
+                </span>
+            </div>
+
+            <!-- Product cards are rendered by script.js -->
+            <div id="product-list"
+                class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            </div>
+
+        </section>
+
+        <!-- Promotional Banner -->
+        <section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
+            <div class="overflow-hidden rounded-3xl bg-[#e8ece2]">
+                <div class="grid items-center gap-8 md:grid-cols-2">
+
+                    <div class="px-7 py-12 sm:px-12 lg:px-16">
+                        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#617653]">
+                            A Little Something Special
+                        </p>
+
+                        <h2 class="text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
+                            Your next favourite<br>is waiting.
+                        </h2>
+
+                        <p class="mt-5 max-w-md text-sm leading-7 text-gray-600">
+                            Explore everyday essentials and discover something
+                            that feels just right for you.
+                        </p>
+
+                        <a href="#products"
+                            class="mt-7 inline-flex items-center gap-3 rounded-full bg-[#20372c] px-7 py-4 text-sm font-medium text-white transition hover:bg-[#354d3f]">
+                            Explore the collection
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+
+                    <div class="relative h-72 md:h-full md:min-h-[400px]">
+                        <img src="images/smartwatch.jpeg"
+                            alt="Lifestyle essentials"
+                            class="absolute inset-0 h-full w-full object-cover">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story -->
+        <section id="about" class="mx-auto max-w-4xl px-5 py-20 text-center">
+            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#81936d]">
+                The Luxora Approach
             </p>
 
-            <h2 class="mt-4 text-lg text-emerald-100"> 
-                Season Sale
+            <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+                Thoughtful finds. Everyday confidence.
             </h2>
 
-            <p class="mt-4 text-lg text-emerald-100">
-                Get Flat 40% OFF on selected
-                premium products.
+            <p class="mx-auto mt-5 max-w-2xl text-sm leading-8 text-gray-600 sm:text-base">
+                At Luxora, discovering something you love should feel effortless.
+                Explore a considered mix of style, technology, and lifestyle essentials
+                in one easy-to-browse destination.
             </p>
+        </section>
 
-            <a href="#products" class="inline-block bg-white text-emerald-700 font-semibold px-8 py-4 rounded-xl mt-8 hover:scale-105 duration-300">
-                Shop Now <i class="ri-arrow-right-line"></i>
-            </a>
-        </div>
+        <!-- Newsletter -->
+        <section class="bg-[#20372c] px-5 py-16 text-white">
+            <div class="mx-auto max-w-3xl text-center">
 
-    </section>
+                <i class="ri-mail-open-line text-3xl text-[#c5d2b8]"></i>
 
-    <!-- footer -->
-
-    <footer id="footer" class="bg-[#17251f] text-stone-300 py-16">
-
-        <div class="max-w-7xl mx-auto py-6 grid md:grid-cols-4 gap-10">
-
-            <div>
-                <h2 class="text-3xl font-bold text-white">
-                    LUXORA <span class="emerald-text-400">.</span>
+                <h2 class="mt-4 text-3xl font-semibold sm:text-4xl">
+                    A little Luxora in your inbox
                 </h2>
 
-                <p class="mt-4 leading-7 text-stone-400">
-                    Timeless fashion and
-                    modern essentials designed
-                    for everyday confidence
+                <p class="mx-auto mt-4 max-w-lg text-sm leading-7 text-white/70">
+                    Get product highlights, fresh inspiration, and collection updates.
+                </p>
+
+                <form id="newsletter-form"
+                    class="mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
+
+                    <input id="newsletter-email"
+                        type="email"
+                        placeholder="Enter your email address"
+                        aria-label="Email address"
+                        required
+                        class="min-w-0 flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-4 text-sm text-white outline-none placeholder:text-white/50 focus:border-white/60">
+
+                    <button type="submit"
+                        class="rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#20372c] transition hover:bg-[#e8ece2]">
+                        Subscribe
+                    </button>
+                </form>
+
+                <p id="newsletter-message" class="mt-4 text-sm text-white/80"></p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#17281f] px-5 pb-6 pt-12 text-white lg:px-8">
+
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
+            <div>
+                <a href="#home" class="text-3xl font-bold tracking-tight">
+                    luxora<span class="text-[#a7b994]">.</span>
+                </a>
+
+                <p class="mt-4 max-w-xs text-sm leading-7 text-white/60">
+                    Discover everyday essentials and little things that make life feel special.
                 </p>
             </div>
 
-            <!-- shop -->
-
             <div>
-                <div class="text-xl text-white font-semibold">
-                    Shop
+                <h3 class="mb-4 text-sm font-semibold">Explore</h3>
+                <div class="flex flex-col gap-3 text-sm text-white/60">
+                    <a href="#home" class="transition hover:text-white">Home</a>
+                    <a href="#categories" class="transition hover:text-white">Categories</a>
+                    <a href="#products" class="transition hover:text-white">Shop all</a>
+                    <a href="#about" class="transition hover:text-white">Our story</a>
                 </div>
-
-                <p>Men</p>
-
-                <p class="mt-2">
-                    Women
-                </p>
-
-                <p class="mt-2">
-                    Shoes
-                </p>
-
-                <p class="mt-2">
-                    Accessories
-                </p>
             </div>
 
-            <!-- company -->
-
             <div>
-                <div class="text-xl text-white font-semibold">
-                    Company
+                <h3 class="mb-4 text-sm font-semibold">Customer Care</h3>
+                <div class="flex flex-col gap-3 text-sm text-white/60">
+                    <a href="#footer-contact" class="transition hover:text-white">Contact us</a>
+                    <a href="#footer-contact" class="transition hover:text-white">Shipping information</a>
+                    <a href="#footer-contact" class="transition hover:text-white">Returns and exchanges</a>
+                    <a href="#footer-contact" class="transition hover:text-white">Frequently asked questions</a>
                 </div>
-
-                <p>About</p>
-
-                <p class="mt-2">
-                    Carrers
-                </p>
-
-                <p class="mt-2">
-                    Privacy
-                </p>
-
-                <p class="mt-2">
-                    Term
-                </p>
             </div>
 
-            <!-- contact -->
+            <div id="footer-contact">
+                <h3 class="mb-4 text-sm font-semibold">Stay Connected</h3>
+                <p class="text-sm leading-7 text-white/60">
+                    Follow along for new finds and everyday inspiration.
+                </p>
 
-            <div>
-                <div class="text-xl text-white font-semibold">
-                    Contact
+                <div class="mt-5 flex gap-4 text-xl">
+                    <a href="#" aria-label="Instagram" class="transition hover:text-[#c5d2b8]">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="transition hover:text-[#c5d2b8]">
+                        <i class="ri-facebook-circle-line"></i>
+                    </a>
+                    <a href="#" aria-label="Pinterest" class="transition hover:text-[#c5d2b8]">
+                        <i class="ri-pinterest-line"></i>
+                    </a>
                 </div>
-
-                <p>
-                    Email : hello@luxro.com
-                </p>
-
-                <p class="mt-2">
-                    Phone : +91 2234333344
-                </p>
-
-                <p class="mt-2">
-                    India
-                </p>
-
             </div>
 
         </div>
 
-        <div class="border-t border-stone-700 mt-12 pt-6 text-center text-stone-500">
-            2026 LUXORA.
-            All Right Reserved
+        <div class="mx-auto mt-12 flex max-w-7xl flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Luxora. All rights reserved.</p>
+            <p>Designed for your everyday.</p>
         </div>
 
     </footer>
 
+    <!-- Existing Product Functionality -->
+    <script src="script.js"></script>
 
+    <!-- Mobile Menu and Newsletter Demo -->
+    <script>
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        mobileMenuButton.addEventListener("click", () => {
+            const isHidden = mobileMenu.classList.toggle("hidden");
+
+            mobileMenuButton.setAttribute("aria-expanded", String(!isHidden));
+
+            mobileMenuButton.innerHTML = isHidden
+                ? '<i class="ri-menu-line"></i>'
+                : '<i class="ri-close-line"></i>';
+        });
+
+        document.querySelectorAll(".mobile-link").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.add("hidden");
+                mobileMenuButton.setAttribute("aria-expanded", "false");
+                mobileMenuButton.innerHTML = '<i class="ri-menu-line"></i>';
+            });
+        });
+
+        document.getElementById("newsletter-form").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const email = document.getElementById("newsletter-email").value;
+
+            document.getElementById("newsletter-message").textContent =
+                `Thanks for your interest! Newsletter signup is currently a demo for ${email}.`;
+
+            event.target.reset();
+        });
+    </script>
 
 </body>
 </html>
