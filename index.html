@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxora - Premium Fashion</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+    <!-- google fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f3ed;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- navbar -->
+
+    <nav class="bg-[#fdfcf8] border-b boredr-200 sticky top-2 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between item-center h-12">
+
+                <!-- logo -->
+
+                <a href="#" class="text-3xl font-bold tracking-tight">
+                    Luxora <span class="text-emerald-600">.</span>
+                </a>
+
+
+                <!-- menu -->
+
+                <ul class="hidden md:flex item-center gap-8 font-medium text-stone-700">
+
+                    <li><a href="#" class="text-emerald-600  hover:text-emerald-700 duration-300">Home</a></li>
+                    <li><a href="#products" class="text-emerald-600  hover:text-emerald-700 duration-300">Shop</a></li>
+                    <li><a href="#categories" class="text-emerald-600  hover:text-emerald-700 duration-300">Categories</a></li>
+                    <li><a href="#footer" class="text-emerald-600  hover:text-emerald-700 duration-300">Contact</a></li>
+
+                </ul>
+
+                <!-- icons -->
+
+                <div class="flex item-center gap-4">
+
+                    <button class="text-2xl hover:text-emerald-600 duration-300 cursor-pointer">
+                        <i class="ri-heart-line"></i>
+
+                    </button>
+
+                    <button class="relative text-2xl cursor-pointer">
+
+                        <i class="ri-shopping-cart-2-line"></i>
+
+                        <span class="absolute -top-2 -right-2 bg-emerald-600 text-white text-xs w-5 h-5 
+                        rounded-full flex items-center justify-center">
+                        0
+                    </span>
+                    
+                    </span>
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- hero -->
+
+    <Section class="bg-[#17251f]">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="grid lg:grid-cols-2 items-center min-h-[85vh] gap-10">
+
+                <!-- left content -->
+
+                <div class="py-16 lg:py-0">
+
+                    <!-- baadge -->
+                     
+                    <div class="bg-emerald-600 text-white w-48 p-2 rounded-full text-sm font-medium flex">
+                        <i class="ri-bard-fill"></i><h1> New Collection 2026</h1>
+                        
+                    </div>
+
+                    <!-- heading -->
+
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mt-8 leading-[1.05]">
+                        Redefine
+                        <span class="text-emerald-400"> Your Style</span>
+                    </h1>
+
+                    <!-- description -->
+
+                     <p class="text-stone-300 mt-6 leading-8 max-w-lg">
+                        Discover timeless fashion,
+                        premium essentials and
+                        modern accessories crafted
+                        for those who love effortless style.
+                     </p>
+
+                     <!-- button -->
+
+                     <div class="flex-wrap gap-4 mt-8">
+                        <a href="#products" class="bg-emarald-600 hover:bg-emerald-700 text white px-8 py-4 rounded-xl font-semibold duration-300">
+                            Shop Collection <i class="ri-arrow-left-line"></i>
+                        </a>
+
+                        <a href="#categories" class= "border border-stone-400 text-white px-8 py-4 rounded-xl hover:bg-white hover:text-stone-900 duration-300">
+
+                            Explore
+
+                        </a>
+
+
+                     </div>
+
+                     <!-- stats -->
+
+                     <div class="fle items-center gap-8 mt-10">
+                        
+                        <div>
+                            <p class="text-2xl font-bold text-white">
+                                10K+
+                            </p>
+
+                            <p class="text-xs text-stone-400 mt-1">
+                                Happy Customers
+                            </p>
+                        </div>
+
+
+                        <div class="w-px h-10 bg-stone-600"></div>                            
+
+                            <div>
+                                <p class="text-2xl font-bold text-white">
+                                    500+
+                                </p>
+
+                                <p class="text-xs text-stone-400 mt-1">
+                                    Prducts
+                                </p>
+                        </div>
+
+
+                        <div class="w-px h-10 bg-stone-600"></div>
+
+                        <div>
+                            <p class="text-2xl font-bold text-white">
+                                4.9 <i class="ri-star-fill text-sm"></i>
+                            </p>
+                            <p class="text-xs text-stone-400 mt-1">
+                                Rating
+                            </p>
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <!-- right model -->
+
+                <div class="relative h-[500px] lg:h-[700px] overflow-hidden">
+                    <img src="images/women1.jpeg" alt="">
+
+                    <!-- image gradient -->
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#17251f] via-transparent to-transparent"></div>
+
+                    <!-- floating card -->
+
+                    <div class="absolute bottom-8 left-6 bg-white/95 backdrop-blue rounded-2xl px-5 py-4 shadow-2xl">
+                        <p class="text-xs text-stone-500 uppercase tracking-widset">
+                            Featured
+                        </p>
+
+                        <p class="font-bold text-lg mt-1">
+                            New Session Edit
+                        </p>
+
+                        <p class="text-emereld-600_text-sm font-semibold mt-1">
+                            Explore Now<i class="ri-arrow-left-line"></i>
+                        </p>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </Section>
+
+    <!-- categories -->
+
+    <section id="categories" class="py-20">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="text-center">
+                <p class="text-emerald-600 font-semibold upercase trackig-widest text-sm">
+                    Explore
+                </p>
+
+                <h2 class="text-4xl font-bold mt-2">
+                    Shop By Category
+                </h2>
+
+                <p class="text-stone-500 mt-3">
+                    Find your project style.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mt-12">
+
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
+                            duration-300 cursor-pinter">
+                            
+                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="ri-shirt-line"></i>
+                            </div>
+
+                            <h3 class="font-bold mt-5">
+                                Fashion
+                            </h3>
+
+                            <p class="text-sm text-stone-500 mt-1">
+                                120+ products
+                            </p>
+                
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
+                            duration-300 cursor-pinter">
+
+                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="ri-Shopping-bag-line"></i>
+                            </div>
+
+                            <h3 class="font-bold mt-5">
+                                Accessories
+                            </h3>
+
+                            <p class="text-sm text-stone-500 mt-1">
+                                95+ products
+                            </p>
+
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
+                            duration-300 cursor-pinter">
+
+                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="ri-Shopping-bag-line"></i>
+                            </div>
+
+                            <h3 class="font-bold mt-5">
+                                Accessories
+                            </h3>
+
+                            <p class="text-sm text-stone-500 mt-1">
+                                95+ products
+                            </p>
+
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-stone-200 hover:-translate-y-1 hover:shadow-xl
+                            duration-300 cursor-pinter">
+
+                            <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="ri-timer-line"></i>
+                            </div>
+
+                            <h3 class="font-bold mt-5">
+                                Lifestyle
+                            </h3>
+
+                            <p class="text-sm text-stone-500 mt-1">
+                                60+ products
+                            </p>
+
+                </div>
+                
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- featured cases -->
+
+    <section id="featured-products" class="py-16 sm:py-20 bg-[#eeece5]">
+
+        <div class="max-w-7xl mx-auto px-4 sm:py-6 lg:px-8">
+
+            <!-- heading -->
+
+            <div class="flex items-end justify=between">
+                <div>
+                    <p class="text-emerald-600 text-sm font-semibold uppercase tracking-widest">
+                        Our Collection
+                    </p>
+
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-2">
+                        Featured Products
+                    </h2>
+                    <a href="#" class="text-emerald-600 font-semibold hidden sm:block">
+                        View All <i class="ri-arrow-right-line"></i>
+                    </a>    
+                </div>
+
+                <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-10"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- offer -->
+
+    <section class="py-20 bg-emerald-700 text-white">
+
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="uppercase tracking-widest text-emerald-200 text-sm font-semibold">
+                Limited Time Offer
+            </p>
+
+            <h2 class="mt-4 text-lg text-emerald-100"> 
+                Season Sale
+            </h2>
+
+            <p class="mt-4 text-lg text-emerald-100">
+                Get Flat 40% OFF on selected
+                premium products.
+            </p>
+
+            <a href="#products" class="inline-block bg-white text-emerald-700 font-semibold px-8 py-4 rounded-xl mt-8 hover:scale-105 duration-300">
+                Shop Now <i class="ri-arrow-right-line"></i>
+            </a>
+        </div>
+
+    </section>
+
+    <!-- footer -->
+
+    <footer id="footer" class="bg-[#17251f] text-stone-300 py-16">
+
+        <div class="max-w-7xl mx-auto py-6 grid md:grid-cols-4 gap-10">
+
+            <div>
+                <h2 class="text-3xl font-bold text-white">
+                    LUXORA <span class="emerald-text-400">.</span>
+                </h2>
+
+                <p class="mt-4 leading-7 text-stone-400">
+                    Timeless fashion and
+                    modern essentials designed
+                    for everyday confidence
+                </p>
+            </div>
+
+            <!-- shop -->
+
+            <div>
+                <div class="text-xl text-white font-semibold">
+                    Shop
+                </div>
+
+                <p>Men</p>
+
+                <p class="mt-2">
+                    Women
+                </p>
+
+                <p class="mt-2">
+                    Shoes
+                </p>
+
+                <p class="mt-2">
+                    Accessories
+                </p>
+            </div>
+
+            <!-- company -->
+
+            <div>
+                <div class="text-xl text-white font-semibold">
+                    Company
+                </div>
+
+                <p>About</p>
+
+                <p class="mt-2">
+                    Carrers
+                </p>
+
+                <p class="mt-2">
+                    Privacy
+                </p>
+
+                <p class="mt-2">
+                    Term
+                </p>
+            </div>
+
+            <!-- contact -->
+
+            <div>
+                <div class="text-xl text-white font-semibold">
+                    Contact
+                </div>
+
+                <p>
+                    Email : hello@luxro.com
+                </p>
+
+                <p class="mt-2">
+                    Phone : +91 2234333344
+                </p>
+
+                <p class="mt-2">
+                    India
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="border-t border-stone-700 mt-12 pt-6 text-center text-stone-500">
+            2026 LUXORA.
+            All Right Reserved
+        </div>
+
+    </footer>
+
+
+
+</body>
+</html>
