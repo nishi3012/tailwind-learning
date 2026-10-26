@@ -2,600 +2,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories | Luxora</title>
 
-    <title>Shop Categories | Luxora</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+    }
 
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <style>
-        body {
-            font-family: "Poppins", sans-serif;
-        }
+    .category-card img {
+      transition: transform 0.5s ease;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    .category-card:hover img {
+      transform: scale(1.06);
+    }
 
-        .category-card img {
-            transition: transform 0.6s ease;
-        }
-
-        .category-card:hover img {
-            transform: scale(1.08);
-        }
-
-        .product-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-        }
-
-        .filter-btn.active {
-            background: #17251f;
-            color: white;
-            border-color: #17251f;
-        }
-    </style>
+    .filter.active {
+      background: #17251f;
+      color: white;
+      border-color: #17251f;
+    }
+  </style>
 </head>
 
 <body class="bg-[#faf9f6] text-[#17251f]">
 
-    <!-- Announcement Bar -->
-    <div class="bg-[#17251f] text-white text-center text-xs sm:text-sm py-2.5 px-4">
-        Free shipping on orders above ₹999
-        <span class="mx-2">|</span>
-        New season collection is here!
+  <!-- Announcement Bar -->
+  <div class="bg-[#17251f] px-4 py-2 text-center text-xs text-white sm:text-sm">
+    Free shipping on orders above ₹999 · Explore the new collection
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 border-b border-stone-200 bg-white/95 backdrop-blur-xl">
+
+    <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
+
+      <a href="index.html" class="text-2xl font-extrabold tracking-[.15em]">
+        LUXORA<span class="text-[#8a9b77]">.</span>
+      </a>
+
+      <div class="hidden items-center gap-8 text-sm font-medium md:flex">
+        <a href="./index.html" class="hover:text-[#81916f]">Home</a>
+        <a href="./categories.html" aria-current="page" class="text-[#81916f]">Categories</a>
+        <a href="#products" class="hover:text-[#81916f]">Shop</a>
+        <a href="./index.html#story" class="hover:text-[#81916f]">Our Story</a>
+      </div>
+
+      <div class="flex items-center gap-5 text-xl">
+
+        <button id="wishlist-button" type="button" aria-label="View wishlist" class="relative">
+          <i class="ri-heart-line"></i>
+          <span id="wishlist-count"
+            class="absolute -right-3 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#81916f] text-[10px] text-white">
+            0
+          </span>
+        </button>
+
+        <button id="cart-button" type="button" aria-label="View cart" class="relative">
+          <i class="ri-shopping-bag-3-line"></i>
+          <span id="cart-count"
+            class="absolute -right-3 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#81916f] text-[10px] text-white">
+            0
+          </span>
+        </button>
+
+        <button id="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" class="md:hidden">
+          <i class="ri-menu-line"></i>
+        </button>
+
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden border-t border-stone-100 bg-white px-6 py-5 md:hidden">
+      <div class="flex flex-col gap-5 text-sm">
+        <a href="index.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="#products">Shop</a>
+        <a href="index.html#story">Our Story</a>
+      </div>
     </div>
 
-    <!-- Navbar -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-stone-200">
+  </header>
 
-        <nav class="max-w-7xl mx-auto px-5 lg:px-8 h-20 flex items-center justify-between">
+  <main>
 
-            <!-- Logo -->
-            <a href="index.html" class="text-2xl font-extrabold tracking-[0.15em]">
-                LUXORA<span class="text-[#8a9b77]">.</span>
-            </a>
+    <!-- Hero -->
+    <section class="bg-[#e9e9df]">
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-9 text-sm font-medium">
-                <a href="index.html" class="hover:text-[#8a9b77] transition">Home</a>
+      <div class="mx-auto grid max-w-7xl items-center gap-8 px-5 lg:grid-cols-2 lg:px-8">
 
-                <a href="categories.html" class="text-[#8a9b77] font-semibold">
-                    Categories
-                </a>
+        <div class="py-16 lg:py-24">
 
-                <a href="#products" class="hover:text-[#8a9b77] transition">
-                    Shop
-                </a>
+          <p class="mb-5 text-xs font-semibold uppercase tracking-[.3em] text-[#71835f]">
+            The Luxora Collection
+          </p>
 
-                <a href="index.html#story" class="hover:text-[#8a9b77] transition">
-                    Our Story
-                </a>
-            </div>
+          <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            Find Your
+            <span class="block text-[#81916f]">Perfect Style.</span>
+          </h1>
 
-            <!-- Actions -->
-            <div class="flex items-center gap-5 text-xl">
+          <p class="mt-6 max-w-lg text-sm leading-8 text-stone-600 sm:text-base">
+            Explore thoughtfully selected footwear, accessories,
+            electronics, and everyday essentials.
+          </p>
 
-                <button id="wishlist-button" type="button" aria-label="View wishlist"
-                    class="relative hover:text-[#8a9b77] transition">
-                    <i class="ri-heart-line"></i>
-                    <span id="wishlist-count"
-                        class="absolute -top-2 -right-3 bg-[#8a9b77] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
-                        0
-                    </span>
-                </button>
-
-                <button id="cart-button" type="button" aria-label="View cart"
-                    class="relative hover:text-[#8a9b77] transition">
-                    <i class="ri-shopping-bag-3-line"></i>
-                    <span id="cart-count"
-                        class="absolute -top-2 -right-3 bg-[#8a9b77] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
-                        0
-                    </span>
-                </button>
-
-                <button id="menu-toggle" type="button" aria-label="Toggle menu"
-                    aria-expanded="false"
-                    class="md:hidden">
-                    <i class="ri-menu-line"></i>
-                </button>
-
-            </div>
-
-        </nav>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-white border-t border-stone-100 px-6 py-5">
-
-            <div class="flex flex-col gap-5 text-sm">
-                <a href="index.html">Home</a>
-                <a href="categories.html" class="font-semibold text-[#8a9b77]">Categories</a>
-                <a href="#products">Shop</a>
-                <a href="index.html#story">Our Story</a>
-            </div>
+          <a href="#categories"
+            class="mt-8 inline-flex items-center gap-3 rounded-full bg-[#17251f] px-7 py-3.5 text-sm font-medium text-white hover:bg-[#81916f]">
+            Explore Categories
+            <i class="ri-arrow-right-line"></i>
+          </a>
 
         </div>
 
-    </header>
-
-    <!-- Hero Section -->
-    <section class="bg-[#e9e9df] overflow-hidden">
-
-        <div class="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-2 items-center gap-10 min-h-[430px]">
-
-            <!-- Hero Text -->
-            <div class="py-16 lg:py-20">
-
-                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#7c8d69] mb-5">
-                    The Luxora Collection
-                </p>
-
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.15] tracking-tight">
-                    Find Your
-                    <span class="block text-[#81916f]">Perfect Style.</span>
-                </h1>
-
-                <p class="text-stone-600 mt-6 max-w-md text-sm sm:text-base leading-8">
-                    Explore our curated collections of fashion,
-                    accessories, technology, and everyday essentials.
-                    Discover something made just for you.
-                </p>
-
-                <a href="#categories"
-                    class="inline-flex items-center gap-3 mt-8 bg-[#17251f] text-white px-7 py-3.5 rounded-full text-sm font-medium hover:bg-[#81916f] transition">
-
-                    Explore Categories
-                    <i class="ri-arrow-right-line"></i>
-
-                </a>
-
-            </div>
-
-            <!-- Hero Image -->
-            <div class="relative h-[340px] lg:h-[430px] overflow-hidden">
-
-                <img src="images/women1.jpeg"
-                    alt="Luxora fashion collection"
-                    class="w-full h-full object-cover object-top">
-
-                <div class="absolute inset-0 bg-gradient-to-r from-[#e9e9df]/40 to-transparent"></div>
-
-            </div>
-
+        <div class="h-[330px] overflow-hidden lg:h-[460px]">
+          <img src="images/women1.jpeg" alt="Luxora collection"
+            class="h-full w-full object-cover object-top">
         </div>
 
+      </div>
     </section>
 
     <!-- Breadcrumb -->
-    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-6 text-sm text-stone-500">
-        <a href="index.html" class="hover:text-[#17251f]">Home</a>
-        <i class="ri-arrow-right-s-line mx-2"></i>
-        <span class="text-[#17251f] font-medium">Categories</span>
+    <div class="mx-auto max-w-7xl px-5 py-6 text-sm text-stone-500 lg:px-8">
+      <a href="index.html">Home</a>
+      <i class="ri-arrow-right-s-line mx-2"></i>
+      <span class="text-[#17251f]">Categories</span>
     </div>
 
-    <!-- Shop By Category -->
-    <section id="categories" class="max-w-7xl mx-auto px-5 lg:px-8 py-14">
+    <!-- Categories -->
+    <section id="categories" class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
 
-        <!-- Section Heading -->
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-5 mb-10">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[.25em] text-[#81916f]">
+        Discover What You Love
+      </p>
 
-            <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-[#81916f] font-semibold mb-3">
-                    Discover What You Love
-                </p>
+      <h2 class="text-3xl font-semibold sm:text-4xl">
+        Shop by Category
+      </h2>
 
-                <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight">
-                    Shop by Category
-                </h2>
+      <p class="mb-10 mt-3 text-sm text-stone-500">
+        Choose a collection to see its products.
+      </p>
 
-                <p class="text-stone-500 mt-3 text-sm">
-                    Explore collections curated for your lifestyle.
-                </p>
-            </div>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
-            <span class="text-sm text-stone-500">06 Collections</span>
+        <!-- Women -->
+        <button type="button" data-category="women"
+          class="category-card group relative h-[350px] overflow-hidden rounded-3xl text-left">
 
-        </div>
+          <img src="images/women1.jpeg" alt="Women's fashion"
+            class="h-full w-full object-cover">
 
-        <!-- Category Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
 
-            <!-- Women -->
-            <button type="button" data-category="women"
-                class="category-card group relative h-[380px] rounded-3xl overflow-hidden text-left">
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="mb-2 text-xs uppercase tracking-widest text-white/75">Timeless Style</p>
+            <h3 class="text-2xl font-semibold">Women's Fashion</h3>
+            <p class="mt-3 text-sm">Explore Collection <i class="ri-arrow-right-up-line"></i></p>
+          </div>
 
-                <img src="images/women1.jpeg" alt="Women's Fashion"
-                    class="w-full h-full object-cover">
+        </button>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+        <!-- Men -->
+        <button type="button" data-category="men"
+          class="category-card group relative h-[350px] overflow-hidden rounded-3xl text-left">
 
-                <div class="absolute bottom-0 left-0 p-7 text-white">
-                    <p class="text-xs tracking-widest uppercase mb-2 text-white/75">
-                        Timeless Style
-                    </p>
-                    <h3 class="text-2xl font-semibold">Women's Fashion</h3>
-                    <p class="mt-3 text-sm flex items-center gap-2">
-                        Explore Collection
-                        <i class="ri-arrow-right-up-line"></i>
-                    </p>
-                </div>
+          <img src="images/nike_air_max.jpeg" alt="Men's collection"
+            class="h-full w-full object-cover">
 
-            </button>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
 
-            <!-- Men -->
-            <button type="button" data-category="men"
-                class="category-card group relative h-[380px] rounded-3xl overflow-hidden text-left">
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="mb-2 text-xs uppercase tracking-widest text-white/75">Everyday Essentials</p>
+            <h3 class="text-2xl font-semibold">Men's Collection</h3>
+            <p class="mt-3 text-sm">Explore Collection <i class="ri-arrow-right-up-line"></i></p>
+          </div>
 
-                <img src="images/nike_air_max.jpeg" alt="Men's Collection"
-                    class="w-full h-full object-cover">
+        </button>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+        <!-- Shoes -->
+        <button type="button" data-category="shoes"
+          class="category-card group relative h-[350px] overflow-hidden rounded-3xl text-left">
 
-                <div class="absolute bottom-0 left-0 p-7 text-white">
-                    <p class="text-xs tracking-widest uppercase mb-2 text-white/75">
-                        Everyday Essentials
-                    </p>
-                    <h3 class="text-2xl font-semibold">Men's Collection</h3>
-                    <p class="mt-3 text-sm flex items-center gap-2">
-                        Explore Collection
-                        <i class="ri-arrow-right-up-line"></i>
-                    </p>
-                </div>
+          <img src="images/nike_air_max.jpeg" alt="Shoes"
+            class="h-full w-full object-cover">
 
-            </button>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
 
-            <!-- Shoes -->
-            <button type="button" data-category="shoes"
-                class="category-card group relative h-[380px] rounded-3xl overflow-hidden text-left">
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="mb-2 text-xs uppercase tracking-widest text-white/75">Step Into Comfort</p>
+            <h3 class="text-2xl font-semibold">Shoes & Sneakers</h3>
+            <p class="mt-3 text-sm">Explore Collection <i class="ri-arrow-right-up-line"></i></p>
+          </div>
 
-                <img src="images/nike_air_max.jpeg" alt="Shoes"
-                    class="w-full h-full object-cover">
+        </button>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+        <!-- Electronics -->
+        <button type="button" data-category="electronics"
+          class="category-card group relative h-[350px] overflow-hidden rounded-3xl text-left">
 
-                <div class="absolute bottom-0 left-0 p-7 text-white">
-                    <p class="text-xs tracking-widest uppercase mb-2 text-white/75">
-                        Step Into Comfort
-                    </p>
-                    <h3 class="text-2xl font-semibold">Shoes & Sneakers</h3>
-                    <p class="mt-3 text-sm flex items-center gap-2">
-                        Explore Collection
-                        <i class="ri-arrow-right-up-line"></i>
-                    </p>
-                </div>
+          <img src="images/wireless_headphones.jpeg" alt="Electronics"
+            class="h-full w-full object-cover">
 
-            </button>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
 
-            <!-- Electronics -->
-            <button type="button" data-category="electronics"
-                class="category-card group relative h-[380px] rounded-3xl overflow-hidden text-left">
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="mb-2 text-xs uppercase tracking-widest text-white/75">Smart Living</p>
+            <h3 class="text-2xl font-semibold">Electronics</h3>
+            <p class="mt-3 text-sm">Explore Collection <i class="ri-arrow-right-up-line"></i></p>
+          </div>
 
-                <img src="images/wireless_headphones.jpeg" alt="Electronics"
-                    class="w-full h-full object-cover">
+        </button>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+        <!-- Accessories -->
+        <button type="button" data-category="accessories"
+          class="category-card group relative h-[350px] overflow-hidden rounded-3xl text-left">
 
-                <div class="absolute bottom-0 left-0 p-7 text-white">
-                    <p class="text-xs tracking-widest uppercase mb-2 text-white/75">
-                        Modern Technology
-                    </p>
-                    <h3 class="text-2xl font-semibold">Electronics</h3>
-                    <p class="mt-3 text-sm flex items-center gap-2">
-                        Explore Collection
-                        <i class="ri-arrow-right-up-line"></i>
-                    </p>
-                </div>
+          <img src="images/smartwatch.jpeg" alt="Accessories"
+            class="h-full w-full object-cover">
 
-            </button>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
 
-            <!-- Accessories -->
-            <button type="button" data-category="accessories"
-                class="category-card group relative h-[380px] rounded-3xl overflow-hidden text-left">
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="mb-2 text-xs uppercase tracking-widest text-white/75">Complete Your Look</p>
+            <h3 class="text-2xl font-semibold">Accessories</h3>
+            <p class="mt-3 text-sm">Explore Collection <i class="ri-arrow-right-up-line"></i></p>
+          </div>
 
-                <img src="images/smartwatch.jpeg" alt="Accessories"
-                    class="w-full h-full object-cover">
+        </button>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+        <!-- Bags -->
+        <button type="button" data-category="bags"
+          class="category-card group relative h-[350px] overflow-hidden rounded-3xl text-left">
 
-                <div class="absolute bottom-0 left-0 p-7 text-white">
-                    <p class="text-xs tracking-widest uppercase mb-2 text-white/75">
-                        Complete Your Look
-                    </p>
-                    <h3 class="text-2xl font-semibold">Accessories</h3>
-                    <p class="mt-3 text-sm flex items-center gap-2">
-                        Explore Collection
-                        <i class="ri-arrow-right-up-line"></i>
-                    </p>
-                </div>
+          <img src="images/bagpack.jpeg" alt="Bags and backpacks"
+            class="h-full w-full object-cover">
 
-            </button>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
 
-            <!-- Bags -->
-            <button type="button" data-category="bags"
-                class="category-card group relative h-[380px] rounded-3xl overflow-hidden text-left">
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="mb-2 text-xs uppercase tracking-widest text-white/75">Carry in Style</p>
+            <h3 class="text-2xl font-semibold">Bags & Backpacks</h3>
+            <p class="mt-3 text-sm">Explore Collection <i class="ri-arrow-right-up-line"></i></p>
+          </div>
 
-                <img src="images/bagpack.jpeg" alt="Bags and Backpacks"
-                    class="w-full h-full object-cover">
+        </button>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
-
-                <div class="absolute bottom-0 left-0 p-7 text-white">
-                    <p class="text-xs tracking-widest uppercase mb-2 text-white/75">
-                        Carry In Style
-                    </p>
-                    <h3 class="text-2xl font-semibold">Bags & Backpacks</h3>
-                    <p class="mt-3 text-sm flex items-center gap-2">
-                        Explore Collection
-                        <i class="ri-arrow-right-up-line"></i>
-                    </p>
-                </div>
-
-            </button>
-
-        </div>
-
+      </div>
     </section>
 
     <!-- Promotional Banner -->
-    <section class="max-w-7xl mx-auto px-5 lg:px-8 py-12">
+    <section class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
 
-        <div class="bg-[#17251f] rounded-3xl px-8 sm:px-14 py-14 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="flex flex-col items-start justify-between gap-6 rounded-3xl bg-[#17251f] px-8 py-12 text-white md:flex-row md:items-center md:px-14">
 
-            <div class="text-white">
-                <p class="text-[#b6c7a6] uppercase text-xs tracking-[0.25em] mb-4">
-                    Special Collection
-                </p>
+        <div>
+          <p class="mb-3 text-xs uppercase tracking-widest text-[#b6c7a6]">
+            Curated For You
+          </p>
 
-                <h2 class="text-3xl sm:text-4xl font-semibold">
-                    Everyday Style, Elevated.
-                </h2>
+          <h2 class="text-3xl font-semibold">
+            Everyday Style, Elevated.
+          </h2>
 
-                <p class="text-white/60 text-sm mt-4 max-w-xl leading-7">
-                    Find your new favorites from our handpicked collection.
-                </p>
-            </div>
-
-            <a href="#products"
-                class="shrink-0 bg-white text-[#17251f] px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#dce4d3] transition">
-                Shop Collection
-                <i class="ri-arrow-right-line ml-2"></i>
-            </a>
-
+          <p class="mt-3 text-sm text-white/65">
+            Find your next favorite from our collections.
+          </p>
         </div>
 
+        <a href="#products"
+          class="rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[#17251f]">
+          Shop Collection
+          <i class="ri-arrow-right-line ml-2"></i>
+        </a>
+
+      </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="max-w-7xl mx-auto px-5 lg:px-8 py-16">
+    <!-- Products -->
+    <section id="products" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-16 lg:px-8">
 
-        <div class="mb-10">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[.25em] text-[#81916f]">
+        Handpicked For You
+      </p>
 
-            <p class="text-xs uppercase tracking-[0.25em] text-[#81916f] font-semibold mb-3">
-                Handpicked For You
-            </p>
+      <h2 class="text-3xl font-semibold sm:text-4xl">
+        Explore Our Products
+      </h2>
 
-            <h2 class="text-3xl sm:text-4xl font-semibold">
-                Explore Our Products
-            </h2>
+      <p class="mt-3 text-sm text-stone-500">
+        Browse the same products featured on the Luxora homepage.
+      </p>
 
-            <p class="text-stone-500 text-sm mt-3">
-                Browse products across all our collections.
-            </p>
+      <!-- Filters and Sorting -->
+      <div class="mt-9 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
 
-        </div>
+        <div id="filters" class="flex flex-wrap gap-2">
 
-        <!-- Filters and Sort -->
-        <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-6 mb-10">
+          <button data-filter="all"
+            class="filter active rounded-full border border-stone-300 px-4 py-2.5 text-sm">All</button>
 
-            <!-- Category Filters -->
-            <div id="filter-buttons" class="flex flex-wrap gap-3">
+          <button data-filter="women"
+            class="filter rounded-full border border-stone-300 px-4 py-2.5 text-sm">Women</button>
 
-                <button data-filter="all"
-                    class="filter-btn active border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition">
-                    All Products
-                </button>
+          <button data-filter="men"
+            class="filter rounded-full border border-stone-300 px-4 py-2.5 text-sm">Men</button>
 
-                <button data-filter="women"
-                    class="filter-btn border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition hover:border-[#17251f]">
-                    Women
-                </button>
+          <button data-filter="shoes"
+            class="filter rounded-full border border-stone-300 px-4 py-2.5 text-sm">Shoes</button>
 
-                <button data-filter="men"
-                    class="filter-btn border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition hover:border-[#17251f]">
-                    Men
-                </button>
+          <button data-filter="electronics"
+            class="filter rounded-full border border-stone-300 px-4 py-2.5 text-sm">Electronics</button>
 
-                <button data-filter="shoes"
-                    class="filter-btn border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition hover:border-[#17251f]">
-                    Shoes
-                </button>
+          <button data-filter="accessories"
+            class="filter rounded-full border border-stone-300 px-4 py-2.5 text-sm">Accessories</button>
 
-                <button data-filter="electronics"
-                    class="filter-btn border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition hover:border-[#17251f]">
-                    Electronics
-                </button>
-
-                <button data-filter="accessories"
-                    class="filter-btn border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition hover:border-[#17251f]">
-                    Accessories
-                </button>
-
-                <button data-filter="bags"
-                    class="filter-btn border border-stone-300 px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition hover:border-[#17251f]">
-                    Bags
-                </button>
-
-            </div>
-
-            <!-- Sort -->
-            <select id="sort-products"
-                aria-label="Sort products"
-                class="bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#81916f]">
-
-                <option value="default">Sort: Featured</option>
-                <option value="low">Price: Low to High</option>
-                <option value="high">Price: High to Low</option>
-                <option value="rating">Top Rated</option>
-
-            </select>
+          <button data-filter="bags"
+            class="filter rounded-full border border-stone-300 px-4 py-2.5 text-sm">Bags</button>
 
         </div>
 
-        <!-- Product Count -->
-        <p id="product-count" class="text-sm text-stone-500 mb-6"></p>
+        <select id="sort-products" aria-label="Sort products"
+          class="rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm">
 
-        <!-- Products will be added by JavaScript -->
-        <div id="category-products"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        </div>
+          <option value="featured">Sort: Featured</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
 
-        <!-- Empty State -->
-        <div id="empty-state" class="hidden text-center py-16">
-            <i class="ri-shopping-bag-line text-5xl text-stone-300"></i>
-            <h3 class="text-xl font-semibold mt-4">No products found</h3>
-            <p class="text-stone-500 text-sm mt-2">
-                Try selecting another category.
-            </p>
-        </div>
+        </select>
+
+      </div>
+
+      <p id="product-count" class="mb-6 mt-7 text-sm text-stone-500"></p>
+
+      <div id="category-products"
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden py-16 text-center">
+
+        <i class="ri-shopping-bag-line text-5xl text-stone-300"></i>
+
+        <h3 class="mt-4 text-xl font-semibold">
+          No products in this collection yet
+        </h3>
+
+        <p class="mt-2 text-sm text-stone-500">
+          Explore another category or browse all products.
+        </p>
+
+        <button id="show-all" type="button"
+          class="mt-5 rounded-full bg-[#17251f] px-6 py-3 text-sm text-white">
+          View All Products
+        </button>
+
+      </div>
 
     </section>
 
     <!-- Newsletter -->
-    <section class="bg-[#eceee6] px-5 py-20">
+    <section class="bg-[#eceee6] px-5 py-16 text-center">
 
-        <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl font-semibold">Stay in the Loop</h2>
 
-            <p class="text-xs uppercase tracking-[0.3em] text-[#81916f] font-semibold mb-4">
-                Join Our Community
-            </p>
+      <p class="mx-auto mt-4 max-w-xl text-sm leading-7 text-stone-500">
+        Get updates on new arrivals and collections.
+      </p>
 
-            <h2 class="text-3xl sm:text-4xl font-semibold">
-                Stay In The Loop
-            </h2>
+      <form id="newsletter-form"
+        class="mx-auto mt-7 flex max-w-xl flex-col gap-3 sm:flex-row">
 
-            <p class="text-stone-500 text-sm mt-5 leading-7">
-                Get updates on new arrivals, exclusive collections,
-                and style inspiration.
-            </p>
+        <input type="email" required placeholder="Enter your email"
+          class="min-w-0 flex-1 rounded-full bg-white px-5 py-3.5 text-sm outline-none">
 
-            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 mt-8">
+        <button type="submit"
+          class="rounded-full bg-[#17251f] px-8 py-3.5 text-sm font-semibold text-white">
+          Subscribe
+        </button>
 
-                <input type="email" id="newsletter-email"
-                    placeholder="Enter your email address"
-                    required
-                    class="flex-1 bg-white px-5 py-4 rounded-full text-sm outline-none border border-stone-200 focus:border-[#81916f]">
-
-                <button type="submit"
-                    class="bg-[#17251f] text-white px-8 py-4 rounded-full text-sm font-semibold hover:bg-[#81916f] transition">
-                    Subscribe
-                </button>
-
-            </form>
-
-        </div>
+      </form>
 
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#17251f] text-white pt-16 pb-8">
+  </main>
 
-        <div class="max-w-7xl mx-auto px-5 lg:px-8">
+  <!-- Footer -->
+  <footer class="bg-[#17251f] px-5 py-12 text-white">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-14">
+    <div class="mx-auto flex max-w-7xl flex-col justify-between gap-6 sm:flex-row sm:items-center">
 
-                <div>
-                    <a href="index.html" class="text-2xl font-extrabold tracking-widest">
-                        LUXORA.
-                    </a>
+      <div>
+        <a href="index.html" class="text-2xl font-extrabold tracking-widest">
+          LUXORA.
+        </a>
 
-                    <p class="text-white/55 text-sm mt-5 leading-7">
-                        Curated fashion, modern essentials,
-                        and everyday luxury for your lifestyle.
-                    </p>
-                </div>
+        <p class="mt-3 text-sm text-white/60">
+          Everyday luxury, curated for you.
+        </p>
+      </div>
 
-                <div>
-                    <h3 class="font-semibold mb-5">Quick Links</h3>
-                    <div class="flex flex-col gap-3 text-sm text-white/60">
-                        <a href="index.html" class="hover:text-white">Home</a>
-                        <a href="categories.html" class="hover:text-white">Categories</a>
-                        <a href="#products" class="hover:text-white">Shop</a>
-                        <a href="index.html#story" class="hover:text-white">Our Story</a>
-                    </div>
-                </div>
+      <div class="flex flex-wrap gap-6 text-sm text-white/70">
+        <a href="index.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="#products">Shop</a>
+        <a href="index.html#story">Our Story</a>
+      </div>
 
-                <div>
-                    <h3 class="font-semibold mb-5">Categories</h3>
-                    <div class="flex flex-col gap-3 text-sm text-white/60">
-                        <a href="#products" data-footer-category="women" class="hover:text-white">Women's Fashion</a>
-                        <a href="#products" data-footer-category="shoes" class="hover:text-white">Shoes</a>
-                        <a href="#products" data-footer-category="electronics" class="hover:text-white">Electronics</a>
-                        <a href="#products" data-footer-category="accessories" class="hover:text-white">Accessories</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold mb-5">Follow Us</h3>
-                    <p class="text-sm text-white/60 mb-5">
-                        Stay connected with Luxora.
-                    </p>
-
-                    <div class="flex gap-4 text-xl text-white/75">
-                        <i class="ri-instagram-line"></i>
-                        <i class="ri-facebook-circle-line"></i>
-                        <i class="ri-pinterest-line"></i>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="border-t border-white/15 pt-7 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
-                <p>© 2026 Luxora. All rights reserved.</p>
-                <p>Made for everyday luxury.</p>
-            </div>
-
-        </div>
-
-    </footer>
-
-    <!-- Product Quick View Modal -->
-    <div id="product-modal"
-        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4">
-
-        <div id="modal-content"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Product details"
-            class="relative bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-        </div>
+      <p class="text-xs text-white/50">© 2026 Luxora</p>
 
     </div>
+  </footer>
 
-    <!-- Toast Notification -->
-    <div id="toast"
-        role="status"
-        aria-live="polite"
-        class="fixed bottom-6 right-6 z-[60] hidden bg-[#17251f] text-white px-6 py-4 rounded-2xl shadow-xl text-sm">
+  <!-- Product Modal -->
+  <div id="product-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4">
+
+    <div id="modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Product details"
+      class="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white">
     </div>
 
-    <!-- JavaScript -->
-    <script src="categories.js"></script>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-6 right-6 z-[60] hidden max-w-[90vw] rounded-xl bg-[#17251f] px-6 py-4 text-sm text-white shadow-xl">
+  </div>
+
+  <script src="categories.js"></script>
 
 </body>
 </html>
