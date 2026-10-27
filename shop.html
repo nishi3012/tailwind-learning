@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Luxora</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-widest">
+                LUXORA
+            </a>
+
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-gray-500">Home</a>
+                <a href="categories.html" class="hover:text-gray-500">Categories</a>
+                <a href="shop.html" class="text-purple-600">Shop</a>
+            </div>
+
+            <span id="cart-count" class="text-sm font-semibold">Cart (0)</span>
+        </nav>
+    </header>
+
+    <!-- Shop Heading -->
+    <section class="bg-white py-14 text-center">
+        <h1 class="text-4xl font-bold mb-3">Explore Our Shop</h1>
+        <p class="text-gray-500">
+            Discover products selected for your everyday style.
+        </p>
+    </section>
+
+    <!-- Shop Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+
+        <!-- Filters -->
+        <div class="flex flex-wrap justify-between items-center gap-5 mb-10">
+
+            <div class="flex flex-wrap gap-3">
+                <button data-filter="All" class="filter-btn bg-black text-white px-5 py-2 rounded-full">
+                    All
+                </button>
+
+                <button data-filter="Shoes" class="filter-btn bg-white border px-5 py-2 rounded-full">
+                    Shoes
+                </button>
+
+                <button data-filter="Electronics" class="filter-btn bg-white border px-5 py-2 rounded-full">
+                    Electronics
+                </button>
+
+                <button data-filter="Bags" class="filter-btn bg-white border px-5 py-2 rounded-full">
+                    Bags
+                </button>
+            </div>
+
+            <select id="sort-products" class="border bg-white rounded-lg px-4 py-2">
+                <option value="default">Sort By</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
+        </div>
+
+        <!-- Products -->
+        <div id="shop-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-8 mt-16">
+        <p class="text-sm">© 2026 Luxora. All rights reserved.</p>
+    </footer>
+
+    <script src="shop.js"></script>
+</body>
+</html>

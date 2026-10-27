@@ -1,611 +1,491 @@
-// ===============================
-// 1. PRODUCT DATA
-// ===============================
+
+/* ========================================
+   LUXORA - MAIN JAVASCRIPT
+======================================== */
+
+/* ---------- PRODUCT DATA ---------- */
 
 const products = [
     {
         id: 1,
-        title: "Nike Air Max",
+        name: "Nike Air Max",
         price: 4999,
-        oldprice: 6499,
-        discount: 23,
         category: "Shoes",
-        rating: 4.8,
-        review: 124,
-        description: "A sporty everyday sneaker with a modern design and cushioned comfort.",
-        image: "images/nike_air_max.jpeg"
+        image: "images/nike_air_max.jpeg",
+        description: "Comfortable and stylish sneakers for everyday wear."
     },
     {
         id: 2,
-        title: "Wireless Headphones",
+        name: "Wireless Headphones",
         price: 2999,
-        oldprice: 3999,
-        discount: 25,
         category: "Electronics",
-        rating: 4.7,
-        review: 89,
-        description: "Enjoy your favourite audio with stylish wireless headphones designed for everyday listening.",
-        image: "images/wireless_headphones.jpeg"
+        image: "images/wireless_headphones.jpeg",
+        description: "Enjoy your favourite music with wireless headphones."
     },
     {
         id: 3,
-        title: "Smart Watch",
+        name: "Smart Watch",
         price: 6999,
-        oldprice: 8999,
-        discount: 22,
         category: "Gadgets",
-        rating: 4.9,
-        review: 210,
-        description: "A versatile smartwatch with a modern design for daily activities and notifications.",
-        image: "images/smartwatch.jpeg"
+        image: "images/smartwatch.jpeg",
+        description: "A modern smartwatch for your everyday lifestyle."
     },
     {
         id: 4,
-        title: "Leather Backpack",
+        name: "Leather Backpack",
         price: 2499,
-        oldprice: 3299,
-        discount: 24,
         category: "Bags",
-        rating: 4.6,
-        review: 89,
-        description: "A practical backpack with a timeless look for carrying your everyday essentials.",
-        image: "images/bagpack.jpeg"
+        image: "images/bagpack.jpeg",
+        description: "A practical backpack with a premium look."
     },
     {
         id: 5,
-        title: "White Shoes",
+        name: "White Shoes",
         price: 6799,
-        oldprice: 9999,
-        discount: 32,
         category: "Shoes",
-        rating: 4.9,
-        review: 290,
-        description: "Minimal white sneakers that pair easily with casual and everyday outfits.",
-        image: "images/nike_air_max.jpeg"
+        image: "images/nike_air_max.jpeg",
+        description: "Classic footwear designed for comfort and style."
     },
     {
         id: 6,
-        title: "Classic White Sneakers",
+        name: "Classic White Sneakers",
         price: 6799,
-        oldprice: 9999,
-        discount: 32,
         category: "Shoes",
-        rating: 4.9,
-        review: 290,
-        description: "Classic everyday sneakers with a versatile design and a clean finish.",
-        image: "images/nike_air_max.jpeg"
+        image: "images/nike_air_max.jpeg",
+        description: "Classic sneakers that complement any outfit."
     },
     {
         id: 7,
-        title: "Casual White Sneakers",
+        name: "Casual White Sneakers",
         price: 6799,
-        oldprice: 9999,
-        discount: 32,
         category: "Shoes",
-        rating: 4.9,
-        review: 290,
-        description: "Casual sneakers designed to complement relaxed, everyday looks.",
-        image: "images/nike_air_max.jpeg"
+        image: "images/nike_air_max.jpeg",
+        description: "Everyday sneakers with a clean, casual design."
     },
     {
         id: 8,
-        title: "Premium White Shoes",
+        name: "Premium White Shoes",
         price: 6799,
-        oldprice: 9999,
-        discount: 32,
         category: "Shoes",
-        rating: 4.9,
-        review: 290,
-        description: "Premium-looking white shoes for a simple and polished outfit.",
-        image: "images/nike_air_max.jpeg"
+        image: "images/nike_air_max.jpeg",
+        description: "Premium-style shoes for a modern wardrobe."
     }
 ];
 
 
-// ===============================
-// 2. GLOBAL VARIABLES
-// ===============================
+/* ---------- STORAGE ---------- */
 
-const productContainer = document.getElementById("product-list");
+let cart = JSON.parse(localStorage.getItem("luxoraCart")) || [];
+let wishlist = JSON.parse(localStorage.getItem("luxoraWishlist")) || [];
 
-const wishlist = new Set();
-const cart = [];
+let currentProduct = null;
+let currentQuantity = 1;
+
+
+/* ---------- HELPERS ---------- */
 
 function formatPrice(price) {
-    return `₹${price.toLocaleString("en-IN")}`;
+    return "₹" + Number(price).toLocaleString("en-IN");
+}
+
+function saveCart() {
+    localStorage.setItem("luxoraCart", JSON.stringify(cart));
+}
+
+function saveWishlist() {
+    localStorage.setItem("luxoraWishlist", JSON.stringify(wishlist));
 }
 
 
-// ===============================
-// 3. DISPLAY PRODUCT CARDS
-// ===============================
+/* ---------- LIGHT PISTA BUTTON STYLES ---------- */
+
+const pistaButton =
+    "bg-[#DDE8C8] hover:bg-[#C5D5A8] text-[#34452E] rounded-full transition-colors duration-300";
+
+const pistaIconButton =
+    "bg-[#DDE8C8] hover:bg-[#C5D5A8] text-[#34452E] rounded-full transition-colors duration-300";
+
+
+/* ---------- RENDER PRODUCTS ---------- */
 
 function renderProducts() {
-    if (!productContainer) return;
+    const productsContainer = document.getElementById("products");
 
-    productContainer.innerHTML = products.map((product) => `
-        <article
-            onclick="openProduct(${product.id})"
-            class="product-card group bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-            <!-- Product Image -->
-            <div class="relative aspect-[4/4.5] overflow-hidden bg-stone-100">
+    if (!productsContainer) {
+        console.warn('Products container "#products" was not found.');
+        return;
+    }
 
-                <img
-                    src="${product.image}"
-                    alt="${product.title}"
-                    loading="lazy"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                >
+    productsContainer.innerHTML = products.map(product => {
+        const isWishlisted = wishlist.includes(product.id);
 
-                <!-- Discount -->
-                <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                    ${product.discount}% OFF
-                </span>
+        return `
+            <article class="product-card group relative overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl">
 
-                <!-- Wishlist Button -->
-                <button
-                    type="button"
-                    onclick="event.stopPropagation(); toggleWishlist(${product.id})"
-                    aria-label="Add to wishlist"
-                    class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 backdrop-blur flex items-center justify-center text-xl shadow-md hover:bg-emerald-600 hover:text-white transition">
-
-                    <i class="${wishlist.has(product.id)
-                        ? "ri-heart-fill text-rose-500"
-                        : "ri-heart-line"}"></i>
-                </button>
-
-                <!-- Quick View -->
-                <button
-                    type="button"
-                    onclick="event.stopPropagation(); openProduct(${product.id})"
-                    class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur text-stone-900 py-3 rounded-xl font-medium shadow-md hover:bg-emerald-600 hover:text-white transition">
-
-                    Quick View
-                    <i class="ri-arrow-right-line ml-1"></i>
-                </button>
-
-            </div>
-
-            <!-- Product Details -->
-            <div class="p-5">
-
-                <p class="text-xs text-emerald-600 font-semibold uppercase tracking-widest">
-                    ${product.category}
-                </p>
-
-                <h3 class="text-lg font-semibold text-stone-900 mt-2">
-                    ${product.title}
-                </h3>
-
-                <!-- Rating -->
-                <div class="flex items-center gap-2 mt-2 text-sm">
-                    <span class="text-amber-500">
-                        <i class="ri-star-fill"></i>
-                    </span>
-
-                    <span class="font-medium text-stone-700">
-                        ${product.rating}
-                    </span>
-
-                    <span class="text-stone-400">
-                        (${product.review} reviews)
-                    </span>
-                </div>
-
-                <!-- Price -->
-                <div class="flex items-center gap-3 mt-4 flex-wrap">
-                    <span class="text-xl font-bold text-stone-900">
-                        ${formatPrice(product.price)}
-                    </span>
-
-                    <span class="text-sm text-stone-400 line-through">
-                        ${formatPrice(product.oldprice)}
-                    </span>
-                </div>
-
-            </div>
-        </article>
-    `).join("");
-}
-
-
-// ===============================
-// 4. FULL PRODUCT VIEW
-// ===============================
-
-function openProduct(id) {
-    const product = products.find(
-        (item) => item.id === Number(id)
-    );
-
-    if (!product) return;
-
-    closeProductModal();
-
-    const modal = document.createElement("div");
-
-    modal.id = "product-modal";
-
-    modal.className =
-        "fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6";
-
-    modal.setAttribute("role", "dialog");
-    modal.setAttribute("aria-modal", "true");
-
-    modal.innerHTML = `
-        <div
-            class="relative bg-white rounded-3xl w-full max-w-5xl max-h-[92vh] overflow-y-auto shadow-2xl"
-            onclick="event.stopPropagation()">
-
-            <!-- Close Button -->
-            <button
-                type="button"
-                onclick="closeProductModal()"
-                aria-label="Close product details"
-                class="sticky top-3 float-right mr-3 mt-3 z-20 w-10 h-10 rounded-full bg-white shadow-md text-2xl hover:bg-stone-100 transition">
-
-                <i class="ri-close-line"></i>
-            </button>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 clear-both">
-
-                <!-- Large Product Image -->
-                <div class="relative bg-stone-100 min-h-[320px] sm:min-h-[450px] md:min-h-[600px]">
+                <div class="relative overflow-hidden bg-[#F5F5EF]">
 
                     <img
                         src="${product.image}"
-                        alt="${product.title}"
-                        class="absolute inset-0 w-full h-full object-cover"
+                        alt="${product.name}"
+                        loading="lazy"
+                        class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     >
 
-                    <span class="absolute top-5 left-5 bg-emerald-600 text-white text-sm font-semibold px-4 py-2 rounded-full">
-                        ${product.discount}% OFF
-                    </span>
+                    <!-- Wishlist Button -->
+                    <button
+                        type="button"
+                        onclick="toggleWishlist(${product.id})"
+                        aria-label="Toggle wishlist"
+                        class="absolute right-3 top-3 flex h-10 w-10 items-center justify-center ${pistaIconButton} shadow transition hover:scale-110"
+                    >
+                        <i class="${isWishlisted
+                            ? "ri-heart-fill text-red-500"
+                            : "ri-heart-line"
+                        } text-xl"></i>
+                    </button>
+
+                    <!-- Quick View Button -->
+                    <button
+                        type="button"
+                        onclick="openProduct(${product.id})"
+                        class="absolute bottom-3 left-3 right-3 px-4 py-3 text-sm font-medium shadow ${pistaButton}"
+                    >
+                        Quick View
+                    </button>
 
                 </div>
 
-                <!-- Product Information -->
-                <div class="p-6 sm:p-10 flex flex-col justify-center">
+                <div class="p-4">
 
-                    <p class="text-sm uppercase tracking-widest font-semibold text-emerald-600">
+                    <p class="mb-2 text-xs uppercase tracking-wider text-gray-500">
                         ${product.category}
                     </p>
 
-                    <h2 class="text-3xl sm:text-4xl font-bold text-stone-900 mt-3">
-                        ${product.title}
-                    </h2>
-
-                    <!-- Rating -->
-                    <div class="flex items-center gap-2 mt-4 text-sm">
-                        <span class="text-amber-500 text-lg">
-                            <i class="ri-star-fill"></i>
-                        </span>
-
-                        <span class="font-semibold">
-                            ${product.rating}/5
-                        </span>
-
-                        <span class="text-stone-500">
-                            (${product.review} reviews)
-                        </span>
-                    </div>
-
-                    <!-- Price -->
-                    <div class="flex items-center gap-3 mt-6 flex-wrap">
-
-                        <span class="text-3xl font-bold text-stone-900">
-                            ${formatPrice(product.price)}
-                        </span>
-
-                        <span class="text-lg text-stone-400 line-through">
-                            ${formatPrice(product.oldprice)}
-                        </span>
-
-                        <span class="text-sm font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
-                            Save ${formatPrice(product.oldprice - product.price)}
-                        </span>
-
-                    </div>
-
-                    <div class="border-t border-stone-200 my-6"></div>
-
-                    <!-- Description -->
-                    <h3 class="font-semibold text-lg text-stone-900">
-                        Product Details
+                    <h3 class="mb-2 text-base font-semibold text-gray-900">
+                        ${product.name}
                     </h3>
 
-                    <p class="text-stone-600 leading-7 mt-3">
-                        ${product.description}
-                    </p>
+                    <div class="flex items-center justify-between gap-3">
 
-                    <!-- Features -->
-                    <div class="mt-5 space-y-3 text-sm text-stone-600">
-
-                        <p>
-                            <i class="ri-checkbox-circle-line text-emerald-600 mr-2"></i>
-                            Designed for everyday style
+                        <p class="font-semibold text-gray-900">
+                            ${formatPrice(product.price)}
                         </p>
 
-                        <p>
-                            <i class="ri-truck-line text-emerald-600 mr-2"></i>
-                            Convenient shopping experience
-                        </p>
-
-                        <p>
-                            <i class="ri-shield-check-line text-emerald-600 mr-2"></i>
-                            Secure shopping experience
-                        </p>
-
-                    </div>
-
-                    <!-- Quantity -->
-                    <div class="mt-7">
-
-                        <label
-                            for="product-quantity"
-                            class="block text-sm font-semibold mb-3">
-
-                            Quantity
-                        </label>
-
-                        <div class="flex items-center border border-stone-300 rounded-xl w-fit">
-
-                            <button
-                                type="button"
-                                onclick="changeQuantity(-1)"
-                                aria-label="Decrease quantity"
-                                class="w-11 h-11 text-xl hover:bg-stone-100 rounded-l-xl">
-
-                                −
-                            </button>
-
-                            <span
-                                id="product-quantity"
-                                class="w-12 text-center font-semibold">
-
-                                1
-                            </span>
-
-                            <button
-                                type="button"
-                                onclick="changeQuantity(1)"
-                                aria-label="Increase quantity"
-                                class="w-11 h-11 text-xl hover:bg-stone-100 rounded-r-xl">
-
-                                +
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-7">
-
+                        <!-- Add to Cart Button -->
                         <button
                             type="button"
                             onclick="addToCart(${product.id})"
-                            class="bg-emerald-600 text-white py-4 px-5 rounded-xl font-semibold hover:bg-emerald-700 transition">
-
-                            <i class="ri-shopping-cart-2-line mr-2"></i>
+                            class="px-4 py-2 text-sm ${pistaButton}"
+                        >
                             Add to Cart
                         </button>
 
-                        <button
-                            type="button"
-                            id="modal-wishlist-button"
-                            onclick="toggleWishlist(${product.id}); updateModalWishlist(${product.id})"
-                            class="border border-stone-300 py-4 px-5 rounded-xl font-semibold hover:bg-stone-100 transition">
-
-                            <i class="${wishlist.has(product.id)
-                                ? "ri-heart-fill text-rose-500"
-                                : "ri-heart-line"} mr-2"></i>
-
-                            ${wishlist.has(product.id)
-                                ? "Wishlisted"
-                                : "Wishlist"}
-                        </button>
-
                     </div>
-
                 </div>
-            </div>
-        </div>
-    `;
 
-    // Close when clicking the dark background
-    modal.addEventListener("click", closeProductModal);
-
-    document.body.appendChild(modal);
-    document.body.classList.add("modal-open");
-
-    document.addEventListener("keydown", handleModalEscape);
-}
-
-
-// ===============================
-// 5. CLOSE PRODUCT MODAL
-// ===============================
-
-function closeProductModal() {
-    document.getElementById("product-modal")?.remove();
-
-    document.body.classList.remove("modal-open");
-
-    document.removeEventListener(
-        "keydown",
-        handleModalEscape
-    );
-}
-
-function handleModalEscape(event) {
-    if (event.key === "Escape") {
-        closeProductModal();
-    }
-}
-
-
-// ===============================
-// 6. QUANTITY SELECTOR
-// ===============================
-
-function changeQuantity(amount) {
-    const quantityElement =
-        document.getElementById("product-quantity");
-
-    if (!quantityElement) return;
-
-    const currentQuantity =
-        Number(quantityElement.textContent);
-
-    quantityElement.textContent = Math.max(
-        1,
-        currentQuantity + amount
-    );
-}
-
-
-// ===============================
-// 7. WISHLIST
-// ===============================
-
-function toggleWishlist(id) {
-    id = Number(id);
-
-    if (wishlist.has(id)) {
-        wishlist.delete(id);
-    } else {
-        wishlist.add(id);
-    }
+            </article>
+        `;
+    }).join("");
 
     updateWishlistCount();
+}
+
+
+/* ---------- QUICK VIEW ---------- */
+
+function openProduct(productId) {
+    const product = products.find(
+        item => item.id === Number(productId)
+    );
+
+    const modal = document.getElementById("product-modal");
+
+    if (!product || !modal) {
+        console.warn("Product or Quick View modal was not found.");
+        return;
+    }
+
+    currentProduct = product;
+    currentQuantity = 1;
+
+    const image = modal.querySelector(
+        "#modal-product-image, .modal-product-image"
+    );
+
+    const title = modal.querySelector(
+        "#modal-product-title, .modal-product-title"
+    );
+
+    const price = modal.querySelector(
+        "#modal-product-price, .modal-product-price"
+    );
+
+    const description = modal.querySelector(
+        "#modal-product-description, .modal-product-description"
+    );
+
+    const category = modal.querySelector(
+        "#modal-product-category, .modal-product-category"
+    );
+
+    const quantity = document.getElementById("product-quantity");
+
+    if (image) {
+        image.src = product.image;
+        image.alt = product.name;
+    }
+
+    if (title) title.textContent = product.name;
+    if (price) price.textContent = formatPrice(product.price);
+    if (description) description.textContent = product.description;
+    if (category) category.textContent = product.category;
+    if (quantity) quantity.value = currentQuantity;
+
+    updateModalWishlist();
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    modal.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeProductModal() {
+    const modal = document.getElementById("product-modal");
+
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    modal.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+}
+
+function changeQuantity(amount) {
+    const quantity = document.getElementById("product-quantity");
+
+    const value = quantity
+        ? Number(quantity.value) || 1
+        : currentQuantity;
+
+    currentQuantity = Math.max(1, value + amount);
+
+    if (quantity) {
+        quantity.value = currentQuantity;
+    }
+}
+
+
+/* ---------- WISHLIST ---------- */
+
+function toggleWishlist(productId) {
+    const id = Number(productId);
+
+    if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
+    } else {
+        wishlist.push(id);
+    }
+
+    saveWishlist();
     renderProducts();
+    updateWishlistCount();
+    updateModalWishlist();
 }
 
 function updateWishlistCount() {
-    const count =
-        document.getElementById("wishlist-count");
+    const element = document.getElementById("wishlist-count");
 
-    if (count) {
-        count.textContent = wishlist.size;
+    if (element) {
+        element.textContent = wishlist.length;
     }
 }
 
-function updateModalWishlist(id) {
-    const button =
-        document.getElementById("modal-wishlist-button");
+function updateModalWishlist() {
+    const button = document.getElementById("modal-wishlist-button");
 
-    if (!button) return;
+    if (!button || !currentProduct) return;
 
-    const isWishlisted = wishlist.has(Number(id));
+    const isWishlisted = wishlist.includes(currentProduct.id);
 
-    button.innerHTML = `
-        <i class="${isWishlisted
-            ? "ri-heart-fill text-rose-500"
-            : "ri-heart-line"} mr-2"></i>
+    button.innerHTML = isWishlisted
+        ? '<i class="ri-heart-fill"></i> Remove from Wishlist'
+        : '<i class="ri-heart-line"></i> Add to Wishlist';
 
-        ${isWishlisted ? "Wishlisted" : "Wishlist"}
-    `;
+    button.classList.add(
+        "bg-[#DDE8C8]",
+        "hover:bg-[#C5D5A8]",
+        "text-[#34452E]"
+    );
+
+    button.onclick = () => toggleWishlist(currentProduct.id);
 }
 
 function showWishlist() {
-    if (wishlist.size === 0) {
+    const items = products.filter(product =>
+        wishlist.includes(product.id)
+    );
+
+    if (!items.length) {
         alert("Your wishlist is empty.");
         return;
     }
 
-    const items = products
-        .filter((product) => wishlist.has(product.id))
-        .map((product) =>
-            `${product.title} — ${formatPrice(product.price)}`
-        )
-        .join("\n");
-
-    alert(`Your Wishlist:\n\n${items}`);
+    alert(
+        "Your Wishlist:\n\n" +
+        items.map(item =>
+            `${item.name} - ${formatPrice(item.price)}`
+        ).join("\n")
+    );
 }
 
 
-// ===============================
-// 8. ADD TO CART
-// ===============================
+/* ---------- CART ---------- */
 
-function addToCart(id) {
+function addToCart(productId, quantity = 1) {
     const product = products.find(
-        (item) => item.id === Number(id)
+        item => item.id === Number(productId)
     );
 
     if (!product) return;
 
-    const quantity = Number(
-        document.getElementById("product-quantity")?.textContent || 1
+    const amount = Math.max(1, Number(quantity) || 1);
+
+    const existing = cart.find(
+        item => item.id === product.id
     );
 
-    const existingItem = cart.find(
-        (item) => item.id === product.id
-    );
-
-    if (existingItem) {
-        existingItem.quantity += quantity;
+    if (existing) {
+        existing.quantity += amount;
     } else {
         cart.push({
             id: product.id,
-            quantity: quantity
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: amount
         });
     }
 
+    saveCart();
     updateCartCount();
-    closeProductModal();
 
-    alert(`${product.title} added to cart.`);
+    alert(`${product.name} added to your cart.`);
 }
 
 function updateCartCount() {
-    const count = document.getElementById("cart-count");
+    const element = document.getElementById("cart-count");
 
-    if (count) {
-        count.textContent = cart.reduce(
-            (total, item) => total + item.quantity,
+    if (element) {
+        element.textContent = cart.reduce(
+            (total, item) => total + Number(item.quantity || 0),
             0
         );
     }
 }
 
-
-// ===============================
-// 9. VIEW CART
-// ===============================
-
 function showCart() {
-    if (cart.length === 0) {
+    if (!cart.length) {
         alert("Your cart is empty.");
         return;
     }
 
-    const cartDetails = cart.map((item) => {
-        const product = products.find(
-            (productItem) => productItem.id === item.id
-        );
+    const details = cart.map(item =>
+        `${item.name} x ${item.quantity} - ${formatPrice(
+            item.price * item.quantity
+        )}`
+    );
 
-        return `${product.title} × ${item.quantity} — ${formatPrice(
-            product.price * item.quantity
-        )}`;
-    });
-
-    const total = cart.reduce((sum, item) => {
-        const product = products.find(
-            (productItem) => productItem.id === item.id
-        );
-
-        return sum + product.price * item.quantity;
-    }, 0);
+    const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
 
     alert(
-        `Your Cart:\n\n${cartDetails.join("\n")}\n\nTotal: ${formatPrice(total)}`
+        "Your Cart:\n\n" +
+        details.join("\n") +
+        "\n\nTotal: " + formatPrice(total)
     );
 }
 
 
-// ===============================
-// 10. INITIALIZE WEBSITE
-// ===============================
+/* ---------- GSAP ANIMATIONS ---------- */
 
-renderProducts();
+function initPageAnimations() {
+    if (typeof gsap === "undefined") return;
+
+    if (typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+    }
+
+    const navbar = document.querySelector("header nav");
+
+    if (navbar) {
+        gsap.from(navbar, {
+            y: -20,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            clearProps: "opacity,transform"
+        });
+    }
+
+    const heroContent = document.querySelector(
+        "#home .hero-content"
+    );
+
+    if (heroContent) {
+        gsap.from(heroContent, {
+            y: 25,
+            opacity: 0,
+            duration: 0.9,
+            delay: 0.15,
+            ease: "power2.out",
+            clearProps: "opacity,transform"
+        });
+    }
+
+    if (typeof ScrollTrigger !== "undefined") {
+        const categoryCards = document.querySelectorAll(
+            "#categories .category-card"
+        );
+
+        if (categoryCards.length) {
+            gsap.from(categoryCards, {
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+                clearProps: "opacity,transform",
+                scrollTrigger: {
+                    trigger: "#categories",
+                    start: "top 85%",
+                    once: true
+                }
+            });
+        }
+    }
+}
+
+
+/* ---------- INITIALIZE ---------- */
+
+function initializeWebsite() {
+    renderProducts();
+    updateCartCount();
+    updateWishlistCount();
+    initPageAnimations();
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeWebsite
+);
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        closeProductModal();
+    }
+});

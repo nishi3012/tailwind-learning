@@ -64,7 +64,7 @@
             <div class="hidden items-center gap-8 text-sm font-medium md:flex">
                 <a href="#home" class="transition hover:text-[#81936d]">Home</a>
                 <a href="./categories.html" class="transition hover:text-[#81936d]">Categories</a>
-                <a href="#products" class="transition hover:text-[#81936d]">Shop</a>
+                <a href="./shop.html" class="transition hover:text-[#81936d]">Shop</a>
                 <a href="#about" class="transition hover:text-[#81936d]">Our Story</a>
             </div>
 
@@ -252,33 +252,35 @@
         </section>
 
         <!-- Featured Products -->
-        <section id="products" class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
 
-            <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-                <div>
-                    <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#81936d]">
-                        Picked for You
-                    </p>
-                    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
-                        Featured products
-                    </h2>
-                    <p class="mt-3 text-sm text-gray-500">
-                        Discover pieces worth adding to your everyday routine.
-                    </p>
+        <section id="featured-products" class="py-16 sm:py-20 bg-[#eeece5]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div class="flex items-end justify-between gap-4">
+                    <div>
+                        <p class="text-emerald-600 text-sm font-semibold uppercase tracking-widest">
+                            Our Collection
+                        </p>
+
+                        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-2">
+                            Featured Products
+                        </h2>
+                    </div>
+
+                    <a href="#products"
+                    class="text-emerald-600 font-semibold hidden sm:block">
+                        View All <i class="ri-arrow-right-line"></i>
+                    </a>
                 </div>
 
-                <span class="text-sm text-gray-500">
-                    New finds. Timeless favourites.
-                </span>
-            </div>
+                <!-- Product cards appear here -->
+                <div id="products"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-10">
+                </div>
 
-            <!-- Product cards are rendered by script.js -->
-            <div id="product-list"
-                class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             </div>
-
         </section>
-
+        
         <!-- Promotional Banner -->
         <section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
             <div class="overflow-hidden rounded-3xl bg-[#e8ece2]">
@@ -431,8 +433,14 @@
 
     </footer>
 
-    <!-- Existing Product Functionality -->
-    <script src="script.js"></script>
+        <!-- GSAP Core Library -->
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+        <!-- GSAP ScrollTrigger Plugin -->
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
+
+        <!-- Your Website JavaScript -->
+        <script src="script.js"></script>
 
     <!-- Mobile Menu and Newsletter Demo -->
     <script>
